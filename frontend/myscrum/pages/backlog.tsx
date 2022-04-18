@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 
 import Button from "@material-ui/core/Button";
+import BacklogList from '../src/components/objects/BacklogList';
 
 const Backlog: NextPage = () => {
   return (
