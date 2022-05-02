@@ -39,6 +39,7 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -82,6 +83,7 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
+// @ts-ignore	      
                 <Link key={page} href={`/${page}`.toLowerCase()}>
                   <MenuItem key={`$(page)`}>
                     <Typography textAlign="center">{page}</Typography>
@@ -100,6 +102,7 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
+// @ts-ignore	      		
               <Link key={page} href={`/${page}`.toLowerCase()}>
                 <Button
                   key={page}

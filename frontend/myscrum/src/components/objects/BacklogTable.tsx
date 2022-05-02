@@ -30,7 +30,7 @@ export default function DragAndDropTable() {
       result.splice(endIndex, 0, removed);
       return result;
     };
-  
+    // @ts-ignore  
     const onDragEnd = (result: DropResult) => {
       const { source, destination } = result;
       if (!destination) {

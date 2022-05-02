@@ -24,7 +24,7 @@ export default function BacklogList() {
       // result.map((row, index) => (row.order = index));
       return result;
     };
-
+// @ts-ignore
     const onDragEnd = (result: DropResult) => {
       const { source, destination } = result;
       if (!destination) {

@@ -23,6 +23,11 @@ module.exports = {
     const oneOf = config.module.rules.find(
       (rule) => typeof rule.oneOf === 'object'
     );
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      'react/jsx-runtime': 'react/jsx-runtime.js',
+      'react/jsx-dev-runtime': 'react/jsx-dev-runtime.js',
+    };
 
     if (oneOf) {
       const moduleCssRule = oneOf.oneOf.find(

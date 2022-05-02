@@ -8,23 +8,37 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TextField from '@mui/material/TextField';
 import Table from '@mui/material/Table';
 import Box from '@mui/material/Box';
+import { useDrag } from 'react-dnd'
+
 import PBIList from './PBIList';
+import {ItemTypes} from '../../itemtypes';
 
 export interface PBIProps {
     title: string,
     point: number,
-    children: PBIProps[],
+    childNodes: PBIProps[],
     f: any
 }
 
-const PBI = ({title, point, children, f}: PBIProps) => {
+const PBI = ({title, point, childNodes, f}: PBIProps) => {
     const [open, setOpen] = React.useState(false);
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: ItemTypes.PBI,
+        collect: (monitor) => ({
+          isDragging: !!monitor.isDragging()
+        })
+      }))    
     const setHoge = () => {
-        f([{title: "aaa", point:1000, children: []}]);
+        f([{title: "aaa", point:1000, childNodes: []}]);
     }
     return (
         <>
-        <TableRow>
+        <TableRow ref={drag} style={{
+                opacity: isDragging ? 0.5 : 1,
+                fontSize: 25,
+                fontWeight: 'bold',
+                cursor: 'move',
+                }}>
             <TableCell>
                 <IconButton
                 aria-label="expand row"
@@ -37,7 +51,7 @@ const PBI = ({title, point, children, f}: PBIProps) => {
             <TableCell>
                 <TextField id="standard-basic" label="Title" defaultValue={title} variant="standard" />
             </TableCell> 
-            <TableCell onClick={() =>  f([{title: "aaa", point:1000, children: []}])}>
+            <TableCell onClick={() =>  f([{title: "aaa", point:1000, childNodes: []}])}>
                 <TextField id="standard-basic" label="pt" defaultValue={point} variant="standard" />
             </TableCell>                          
         </TableRow>
@@ -45,7 +59,7 @@ const PBI = ({title, point, children, f}: PBIProps) => {
         <Table>
             <TableRow>
                 <Collapse in={open} timeout="auto" unmountOnExit>
-                    <PBIList data={children} />
+                    <PBIList data={childNodes}/>
                 </Collapse>
             </TableRow>
             </Table>
