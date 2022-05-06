@@ -34,7 +34,7 @@ const Backlog: NextPage = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <DndProvider backend={HTML5Backend}>
-              <PBIList data={pbiData}/>
+              <PBIList data={pbiData} onChangeFunc={setPBIData}/>
             </DndProvider>
           </Grid>
           <Grid item xs={12}>

@@ -8,20 +8,41 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TextField from '@mui/material/TextField';
 import Table from '@mui/material/Table';
 import Box from '@mui/material/Box';
-import { useDrag } from 'react-dnd'
+import { useDrag, useDrop } from 'react-dnd'
 
 import PBIList from './PBIList';
 import {ItemTypes} from '../../itemtypes';
+import {PBIData} from '../../lib/api';
 
 export interface PBIProps {
+    id: number,
+    depth: number,
+    parentId: number | null,
     title: string,
     point: number,
-    childNodes: PBIProps[],
-    f: any
+    childNodes: PBIData[],
+    onChangeFunc: Function,
 }
 
-const PBI = ({title, point, childNodes, f}: PBIProps) => {
+const PBI = ({id, depth, parentId, title, point, childNodes, onChangeFunc}: PBIProps) => {
+    const ref = React.useRef(null)
     const [open, setOpen] = React.useState(false);
+    const getId = () => {return id};
+    const getDepth = () => {return depth};
+    const getParentId = () => {return parentId};
+
+    const [, drop] = useDrop({
+        accept: ItemTypes.PBI,
+        collect(monitor) {
+            return {
+                handlerId: monitor.getHandlerId(),
+            }
+        },
+        hover(item, monitor) {
+            console.log(item);
+        },
+        drop: () => {console.log("drop")},
+    });
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.PBI,
         collect: (monitor) => ({
@@ -29,11 +50,13 @@ const PBI = ({title, point, childNodes, f}: PBIProps) => {
         })
       }))    
     const setHoge = () => {
-        f([{title: "aaa", point:1000, childNodes: []}]);
+        onChangeFunc([{title: "aaa", point:1000, childNodes: []}]);
     }
+    drag(drop(ref));
     return (
         <>
-        <TableRow ref={drag} style={{
+        <TableRow
+         ref={ref} style={{
                 opacity: isDragging ? 0.5 : 1,
                 fontSize: 25,
                 fontWeight: 'bold',
@@ -51,7 +74,7 @@ const PBI = ({title, point, childNodes, f}: PBIProps) => {
             <TableCell>
                 <TextField id="standard-basic" label="Title" defaultValue={title} variant="standard" />
             </TableCell> 
-            <TableCell onClick={() =>  f([{title: "aaa", point:1000, childNodes: []}])}>
+            <TableCell onClick={() =>  onChangeFunc([{title: "aaa", point:1000, childNodes: []}])}>
                 <TextField id="standard-basic" label="pt" defaultValue={point} variant="standard" />
             </TableCell>                          
         </TableRow>
@@ -59,7 +82,7 @@ const PBI = ({title, point, childNodes, f}: PBIProps) => {
         <Table>
             <TableRow>
                 <Collapse in={open} timeout="auto" unmountOnExit>
-                    <PBIList data={childNodes}/>
+                    <PBIList data={childNodes} depth={depth+1} parentId={id} onChangeFunc={onChangeFunc}/>
                 </Collapse>
             </TableRow>
             </Table>
