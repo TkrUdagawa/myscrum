@@ -1,5 +1,10 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+
+## nginx dockerで動かす例
+$ ./build_image.sh
+$ docker run --rm -p 8080:80 --name myscrum-front_1 myscrum-front
+
 ## Getting Started
 
 First, run the development server:
