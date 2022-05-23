@@ -19,6 +19,7 @@ const regexEqual = (x, y) => {
 
 module.exports = {
   reactStrictMode: true,
+  trailingSlash: true,
   webpack: (config) => {
     const oneOf = config.module.rules.find(
       (rule) => typeof rule.oneOf === 'object'
