@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "../common/Link";
 
-const pages = ["Backlog", "Backlog2"];
+const pages = ["Backlog", "Backlog2", "Backlog3"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const ResponsiveAppBar = () => {
