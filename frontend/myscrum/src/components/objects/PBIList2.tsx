@@ -15,7 +15,7 @@ const PBIList = ({items, title, columnId, moveItem}: PBIList2Props) => {
         <>
         <Typography>{title}</Typography>
         {items.map((item: any, idx: number) => {
-            return <PBI2 key={idx} id={item.itemId} title={item.title}
+            return <PBI2 key={item.itemId} id={item.itemId} title={item.title}
                     columnId={columnId} columnIdx={idx} moveItem={moveItem}
                     />
             })}

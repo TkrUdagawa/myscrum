@@ -43,7 +43,7 @@ const PBI2 = ({id, title, columnId, columnIdx, moveItem}: PBI2Props) => {
               }                        
             moveItem(item, columnId, columnIdx);
         },
-        drop: () => {console.log("drop")},
+        drop: () => {},
     });
     const [{ isDragging }, drag] = useDrag(() => ({
         type: ItemTypes.PBI,
@@ -53,10 +53,9 @@ const PBI2 = ({id, title, columnId, columnIdx, moveItem}: PBI2Props) => {
         })
       }))    
     drag(drop(ref));
-    console.log(title);
     return (
-        <div ref={ref}>
         <TableRow
+          ref={ref}
           style={{
                 opacity: isDragging ? 0.5 : 1,
                 fontSize: 25,
@@ -67,7 +66,6 @@ const PBI2 = ({id, title, columnId, columnIdx, moveItem}: PBI2Props) => {
                 <Typography>{title}</Typography>
             </TableCell>             
         </TableRow>
-        </div>
     )
 }
 export default PBI2;
